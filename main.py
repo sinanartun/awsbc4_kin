@@ -7,16 +7,16 @@ import get_credentials
 
 
 async def main():
-    # # credentials = get_credentials.get()
+    credentials = get_credentials.get()
     # print(credentials)
 
-    # kinesis_client = boto3.client(
-    #     'kinesis',
-    #     aws_access_key_id=credentials['AccessKeyId'],
-    #     aws_secret_access_key=credentials['SecretAccessKey'],
-    #     aws_session_token=credentials['Token'],
-    #     region_name='eu-north-1'
-    # )
+    kinesis_client = boto3.client(
+        'kinesis',
+        aws_access_key_id=credentials['AccessKeyId'],
+        aws_secret_access_key=credentials['SecretAccessKey'],
+        aws_session_token=credentials['Token'],
+        region_name='eu-north-1'
+    )
 
     binance_client = await AsyncClient.create()
     bsm = BinanceSocketManager(binance_client)
@@ -40,14 +40,14 @@ async def main():
             line += str(maker) + '\n'
 
             print(line)
-            # try:
-            #     response = kinesis_client.put_record(StreamName='binancedatastream', Data=line, PartitionKey=str(res['t']))
-            #
-            # except ClientError:
-            #     print("Couldn't put record in stream 'binance'")
-            #     raise
-            # else:
-            #     print(response)
+            try:
+                response = kinesis_client.put_record(StreamName='challenge6', Data=line, PartitionKey=str(res['t']))
+
+            except ClientError:
+                print("Couldn't put record in stream 'binance'")
+                raise
+            else:
+                print(response)
             print(res)
 
     await client.close_connection()
