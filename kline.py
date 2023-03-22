@@ -32,13 +32,13 @@ def main():
     def handle_socket_message(msg):
         if msg['k']['t'] != kline.last_time:
             kline.last_time = msg['k']['t']
-            data = msg['k']['t'] + ","
-            data += msg['k']['o'] + ","
-            data += msg['k']['h'] + ","
-            data += msg['k']['l'] + ","
-            data += msg['k']['c'] + ","
-            data += msg['k']['v'] + ","
-            data += msg['k']['T'] + "," + ta.main()
+            data = str(msg['k']['t']) + ","
+            data += str(msg['k']['o']) + ","
+            data += str(msg['k']['h']) + ","
+            data += str(msg['k']['l']) + ","
+            data += str(msg['k']['c']) + ","
+            data += str(msg['k']['v']) + ","
+            data += str(msg['k']['T']) + "," + ta.main()
             try:
                 response = kinesis_client.put_record(StreamName='kline', Data=data, PartitionKey=str(msg['k']['t']))
 
