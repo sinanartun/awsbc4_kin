@@ -48,7 +48,7 @@ def main():
             print(data)
             data += str(kline.last_data['T']) + "," + ta.main()
             try:
-                response = kinesis_client.put_record(StreamName='kline', Data=data, PartitionKey=str(kline.last_data['k']['t']))
+                response = kinesis_client.put_record(StreamName='kline', Data=data, PartitionKey=str(kline.last_data['t']))
 
             except ClientError:
                 print("Couldn't put record in stream 'binance'")
