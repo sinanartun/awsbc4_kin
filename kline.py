@@ -31,6 +31,7 @@ def main():
 
     def handle_socket_message(msg):
         if msg['k']['t'] != kline.last_time:
+            print(msg['k'])
             kline.last_time = msg['k']['t']
             data = str(msg['k']['t']) + ","
             data += str(msg['k']['o']) + ","
